@@ -1,10 +1,13 @@
-SRC = philo.c \
-		parsing.c \
-		lib.c
+SRC = ft_philo.c \
+		ft_parsing.c \
+		ft_lib.c \
+		ft_atoi.c
 
 OBJ = ${SRC:.c=.o}
 
 FLAGS = -Wall -Wextra -Werror
+
+THREAD_FLAGS = -lpthread -D_REENTRANT
 
 .c.o:
 	gcc $(FLAGS) -c $< -o $(<:.c=.o)
@@ -12,7 +15,7 @@ FLAGS = -Wall -Wextra -Werror
 NAME = philo
 
 $(NAME): $(OBJ)
-	gcc $(FLAGS) -o $(NAME) $(OBJ)
+	gcc $(FLAGS) -o $(NAME) $(OBJ) $(THREAD_FLAGS)
 
 clean:
 	rm -f $(OBJ)

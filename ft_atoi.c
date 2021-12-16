@@ -1,22 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/09 01:21:49 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/09 04:44:09 by malbrand         ###   ########.fr       */
+/*   Created: 2021/12/10 17:58:49 by malbrand          #+#    #+#             */
+/*   Updated: 2021/12/10 18:04:52 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "ft_philo.h"
 
-int	main(int ac, char **av)
+int	ft_atoi(char const *s)
 {
-	t_philo	philo;
+	int	i;
+	int	ret;
+	int	neg;
 
-	philo = ft_parsing(ac, av, philo);
-	printf("philo == %d die == %d, eat == %d sleep == %d\n", philo.nb_philo, philo.time_die, philo.time_eat, philo.time_sleep);
-	return (0);
+	i = 0;
+	ret = 0;
+	neg = 1;
+	while ((s[i] >= 9 && s[i] <= 13) || s[i] == ' ')
+		i++;
+	if (s[i] == '-' || s[i] == '+')
+	{
+		if (s[i] == '-')
+			neg *= -1;
+		i++;
+	}
+	if (s[i] == '-' || s[i] == '+')
+		return (0);
+	while (s[i] >= '0' && s[i] <= '9')
+	{
+		ret = ret * 10 + s[i] - '0';
+		i++;
+	}
+	ret = ret * neg;
+	return (ret);
 }
