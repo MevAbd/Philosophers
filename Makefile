@@ -5,7 +5,7 @@ SRC = ft_philo.c \
 
 OBJ = ${SRC:.c=.o}
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror #-fsanitize=address
 
 THREAD_FLAGS = -lpthread -D_REENTRANT
 

@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 01:24:58 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/16 05:42:26 by malbrand         ###   ########.fr       */
+/*   Updated: 2021/12/16 08:49:10 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_info	*ft_init(int ac)
 	inf->time_die = 0;
 	inf->time_eat = 0;
 	inf->time_sleep = 0;
+	inf->error = 0;
 	if (ac == 5)
 		inf->nb_eat = -1;
 	else
@@ -30,8 +31,9 @@ t_info	*ft_init(int ac)
 	return (inf);
 }
 
-void	ft_exit(char *str, int i)
+void	ft_exit(char *str, int i, t_info *info)
 {
+	free(info);
 	if (i == 0)
 		write(1, "Error\nNegative numbers are impossible\n", 39);
 	else if (i == 1)
@@ -47,18 +49,18 @@ void	ft_fill_struct_bis(t_info *info, int ac, char **av)
 	info->time_sleep = ft_atoi((av[4]));
 	test = ft_itoa(info->time_sleep, 0);
 	if (ft_strncmp(test, av[4], ft_strlen(av[4])) != 0)
-		ft_exit(test, 1);
+		ft_exit(test, 1, info);
 	if (info->time_sleep < 1)
-		ft_exit(test, 0);
+		ft_exit(test, 0, info);
 	if (ac == 6)
 	{
 		free(test);
 		info->nb_eat = ft_atoi((av[5]));
 		test = ft_itoa(info->nb_eat, 0);
 		if (ft_strncmp(test, av[5], ft_strlen(av[5])) != 0)
-			ft_exit(test, 1);
+			ft_exit(test, 1, info);
 		if (info->time_sleep < 1)
-			ft_exit(test, 0);
+			ft_exit(test, 0, info);
 	}
 	free(test);
 }
@@ -70,23 +72,23 @@ void	ft_fill_struct(t_info *info, int ac, char **av)
 	info->nb_philo = ft_atoi(av[1]);
 	test = ft_itoa(info->nb_philo, 0);
 	if (ft_strncmp(test, av[1], ft_strlen(av[1])) != 0)
-		ft_exit(test, 1);
+		ft_exit(test, 1, info);
 	if (info->nb_philo < 1 || info->nb_philo > 200)
-		ft_exit(test, 0);
+		ft_exit(test, 0, info);
 	free(test);
 	info->time_die = ft_atoi(av[2]);
 	test = ft_itoa(info->time_die, 0);
 	if (ft_strncmp(test, av[2], ft_strlen(av[2])) != 0)
-		ft_exit(test, 1);
+		ft_exit(test, 1, info);
 	if (info->time_die < 1)
-		ft_exit(test, 0);
+		ft_exit(test, 0, info);
 	free(test);
 	info->time_eat = ft_atoi(av[3]);
 	test = ft_itoa(info->time_eat, 0);
 	if (ft_strncmp(test, av[3], ft_strlen(av[3])) != 0)
-		ft_exit(test, 1);
+		ft_exit(test, 1, info);
 	if (info->time_eat < 1)
-		ft_exit(test, 0);
+		ft_exit(test, 0, info);
 	free(test);
 	ft_fill_struct_bis(info, ac, av);
 }
