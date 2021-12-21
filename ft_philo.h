@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 01:25:59 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/16 15:25:17 by malbrand         ###   ########.fr       */
+/*   Updated: 2021/12/21 06:03:21 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <pthread.h>
+# include <sys/time.h>
 
 typedef struct s_info
 {
@@ -32,10 +33,9 @@ typedef struct s_phil_inf
 {
 	int				odd_eat;
 	int				even_eat;
-	int				eat_limit;
-	int				n_philo;
 	long			time;
 	void			*philo_ptr;
+	t_info			*info;
 	pthread_mutex_t	info_write;
 	pthread_mutex_t	read_info;
 	pthread_mutex_t	death;
@@ -51,5 +51,7 @@ size_t	ft_strlen(const char *str);
 
 t_info	*ft_parsing(int ac, char **av, t_info *info);
 t_info	*ft_init(int ac);
+
+t_phil_inf	*ft_init_phil_inf(t_phil_inf *philo, t_info *inf);
 
 #endif
