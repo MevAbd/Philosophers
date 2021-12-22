@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 01:25:59 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/21 06:03:21 by malbrand         ###   ########.fr       */
+/*   Updated: 2021/12/22 18:43:59 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,28 @@ typedef struct s_phil_inf
 	pthread_mutex_t	read_info;
 	pthread_mutex_t	death;
 	pthread_mutex_t	finish;
+	pthread_mutex_t	*fork;
 }					t_phil_inf;
 
-int		ft_atoi(char const *s);
-int		ft_strncmp(char const *s1, char const *s2, size_t n);
+typedef struct s_philo
+{
+	int					id;
+	int					dead;
+	t_phil_inf			*p_info;
+	struct s_philo		*next;
+}				t_philo;
 
-char	*ft_itoa(int n, unsigned int j);
+int			ft_atoi(char const *s);
+int			ft_strncmp(char const *s1, char const *s2, size_t n);
 
-size_t	ft_strlen(const char *str);
+char		*ft_itoa(int n, unsigned int j);
 
-t_info	*ft_parsing(int ac, char **av, t_info *info);
-t_info	*ft_init(int ac);
+size_t		ft_strlen(const char *str);
+
+t_info		*ft_parsing(int ac, char **av, t_info *info);
+t_info		*ft_init(int ac);
+
+t_philo		*ft_create(t_phil_inf *philo_info);
 
 t_phil_inf	*ft_init_phil_inf(t_phil_inf *philo, t_info *inf);
 

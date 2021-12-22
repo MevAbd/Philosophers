@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 01:21:49 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/21 06:17:02 by malbrand         ###   ########.fr       */
+/*   Updated: 2021/12/22 18:41:20 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,18 @@ void	ft_exit(t_info *info, t_phil_inf *philo)
 	free(info);
 	free(philo);
 	exit (0);
-
 }
 
 int	main(int ac, char **av)
 {
 	t_info		*inf;
-	t_phil_inf	*philo;
+	t_phil_inf	*info_philo;
+	t_philo		*philo;
 
 	inf = ft_init(ac);
-	philo = malloc(sizeof(t_phil_inf));
-	if (!philo)
+	(void)philo;
+	info_philo = malloc(sizeof(t_phil_inf));
+	if (!info_philo)
 	{
 		free(inf);
 		exit(0);
@@ -40,12 +41,13 @@ int	main(int ac, char **av)
 	{
 		inf = ft_parsing(ac, av, inf);
 		if (inf->error != 2)
-			ft_exit(inf, philo);
-		philo = ft_init_phil_inf(philo, inf);
+			ft_exit(inf, info_philo);
+		info_philo = ft_init_phil_inf(info_philo, inf);
+		philo = ft_create(info_philo);
 	}
 	else
 		write(1, "Error\nNot good number of arg\n", 29);
-	free(philo);
+	free(info_philo);
 	free(inf);
 	return (0);
 }

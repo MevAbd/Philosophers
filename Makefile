@@ -2,7 +2,8 @@ SRC = ft_philo.c \
 		ft_parsing.c \
 		ft_lib.c \
 		ft_atoi.c \
-		ft_init_info.c
+		ft_init_info.c \
+		ft_thread.c
 
 OBJ = ${SRC:.c=.o}
 
