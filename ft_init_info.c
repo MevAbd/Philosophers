@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 16:56:38 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/29 01:56:53 by malbrand         ###   ########.fr       */
+/*   Updated: 2021/12/29 06:18:20 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ t_info	*ft_init_bis(t_info	*info)
 	int	i;
 
 	i = 0;
-	info->max_even = info->even_eat;
-	info->max_odd = info->odd_eat;
+	info->even_eat_tmp = info->even_eat;
+	info->odd_eat_tmp = info->odd_eat;
 	pthread_mutex_init(&info->write_info, NULL);
 	pthread_mutex_init(&info->read_info, NULL);
 	pthread_mutex_init(&info->dead, NULL);
 	pthread_mutex_init(&info->finish, NULL);
+	pthread_mutex_init(&info->control, NULL);
 	while (i < info->n_philo)
 	{
 		pthread_mutex_init(&info->fork[i], NULL);
@@ -53,7 +54,7 @@ t_info	*ft_init_info(int ac, char **av)
 	info->n_philo = ft_atoi(av[1]);
 	info->even_eat = info->n_philo / 2;
 	if (ac == 5)
-		info->max_eat = -1;
+		info->max_eat = 0;
 	else
 		info->max_eat = ft_atoi(av[5]);
 	if (info->n_philo % 2 == 0)

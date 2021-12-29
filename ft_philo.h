@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 15:52:22 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/29 05:59:07 by malbrand         ###   ########.fr       */
+/*   Updated: 2021/12/29 06:18:09 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ typedef struct s_info
 {
 	int				sig;
 	int				odd_eat;
+	int				odd_eat_tmp;
 	int				even_eat;
-	int				max_even;
-	int				max_odd;
+	int				even_eat_tmp;
 	int				max_eat;
 	int				n_philo;
 	long			time;
@@ -34,6 +34,7 @@ typedef struct s_info
 	pthread_mutex_t	read_info;
 	pthread_mutex_t	dead;
 	pthread_mutex_t	finish;
+	pthread_mutex_t	control;
 	pthread_mutex_t	*fork;
 }					t_info;
 

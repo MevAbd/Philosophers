@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 04:20:20 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/29 05:30:43 by malbrand         ###   ########.fr       */
+/*   Updated: 2021/12/29 07:00:12 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	ft_solo(t_philo *philo)
 	ft_fork(philo, &philo->info_ptr->fork[philo->id - 1]);
 	ft_sleep(philo->info_ptr, philo->ttd);
 	ft_write_solo(philo, "died");
-	philo->info_ptr->sig = 3;
+	pthread_mutex_unlock(&philo->info_ptr->fork[philo->id - 1]);
+	philo->info_ptr->sig = 2;
 }
 
 void	ft_eat(t_philo *philo)
