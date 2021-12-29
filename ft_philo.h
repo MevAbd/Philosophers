@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/09 01:25:59 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/22 18:43:59 by malbrand         ###   ########.fr       */
+/*   Created: 2021/12/28 15:52:22 by malbrand          #+#    #+#             */
+/*   Updated: 2021/12/29 05:59:07 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,48 +21,60 @@
 
 typedef struct s_info
 {
-	int	nb_philo;
-	int	time_die;
-	int	time_eat;
-	int	time_sleep;
-	int	nb_eat;
-	int	error;
-}				t_info;
-
-typedef struct s_phil_inf
-{
+	int				sig;
 	int				odd_eat;
 	int				even_eat;
+	int				max_even;
+	int				max_odd;
+	int				max_eat;
+	int				n_philo;
 	long			time;
 	void			*philo_ptr;
-	t_info			*info;
-	pthread_mutex_t	info_write;
+	pthread_mutex_t	write_info;
 	pthread_mutex_t	read_info;
-	pthread_mutex_t	death;
+	pthread_mutex_t	dead;
 	pthread_mutex_t	finish;
 	pthread_mutex_t	*fork;
-}					t_phil_inf;
+}					t_info;
 
 typedef struct s_philo
 {
 	int					id;
-	int					dead;
-	t_phil_inf			*p_info;
+	int					die;
+	int					ttd;
+	int					tte;
+	int					tts;
+	int					verif;
+	long				stalk;
+	t_info				*info_ptr;
+	pthread_mutex_t		fork;
+	pthread_t			t_id;
 	struct s_philo		*next;
-}				t_philo;
+}						t_philo;
 
 int			ft_atoi(char const *s);
 int			ft_strncmp(char const *s1, char const *s2, size_t n);
+int			ft_parsing(int ac, char **av);
 
 char		*ft_itoa(int n, unsigned int j);
 
+long		ft_time(void);
+
+void		ft_thread(t_philo *philo);
+void		*ft_loop(t_philo *philo);
+void		ft_eat(t_philo *philo);
+void		ft_write_solo(t_philo *philo, char *str);
+void		ft_write(t_philo *philo, char *str);
+void		ft_sleep(t_info *info, long time);
+void		ft_join(t_philo *philo);
+void		ft_unlock(t_philo *philo);
+void		ft_close(t_philo *philo);
+void		ft_signal(t_info *info, int *sig);
+
 size_t		ft_strlen(const char *str);
 
-t_info		*ft_parsing(int ac, char **av, t_info *info);
-t_info		*ft_init(int ac);
+t_info		*ft_init_info(int ac, char **av);
 
-t_philo		*ft_create(t_phil_inf *philo_info);
-
-t_phil_inf	*ft_init_phil_inf(t_phil_inf *philo, t_info *inf);
+t_philo		*ft_create_philo(t_info *info, char **av);
 
 #endif
