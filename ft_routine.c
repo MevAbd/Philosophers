@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 18:44:43 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/30 00:13:03 by malbrand         ###   ########.fr       */
+/*   Updated: 2021/12/30 17:43:17 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	ft_dead(t_info *info)
 	eat = 0;
 	while (philo && --i)
 	{	
-		if (philo->stalk != 0 && ((ft_time() - info->time) - philo->stalk)
-			>= philo->ttd)
+		if (philo->stalk != 0 && ((ft_time() - info->time)
+				- philo->stalk) >= philo->ttd)
 		{
 			ret = 1;
 			philo->die = 1;
@@ -43,7 +43,7 @@ int	ft_dead(t_info *info)
 			eat++;
 		philo = philo->next;
 	}
-	ret = ft_ret(eat == info->n_philo, ret);
+	ret = ft_ret((eat == info->n_philo), ret);
 	pthread_mutex_unlock(&info->dead);
 	return (ret);
 }
@@ -84,9 +84,7 @@ void	*ft_loop(t_philo *philo)
 		ft_signal(philo->info_ptr, &sig);
 		if ((philo->id % 2 == 0 && sig == 0)
 			|| (philo->id % 2 != 0 && sig == 1))
-		{
 			ft_eat(philo);
-		}
 	}
 	ft_close(philo);
 	return ((void *)0);

@@ -7,14 +7,16 @@ SRC = ft_philo.c \
 		ft_routine.c \
 		ft_finish.c
 
-OBJ = ${SRC:.c=.o}
+OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,${SRC})
+OBJ_DIR	= objs/
 
 FLAGS = -Wall -Wextra -Werror
 
 THREAD_FLAGS = -lpthread -D_REENTRANT
 
-.c.o:
-	cc $(FLAGS) -c $< -o $(<:.c=.o)
+$(OBJ_DIR)%.o	: %.c
+				mkdir -p $(OBJ_DIR)
+				cc $(FLAGS) -c $< -o $@
 
 NAME = philo
 
@@ -22,7 +24,7 @@ $(NAME): $(OBJ)
 	cc $(FLAGS) -o $(NAME) $(OBJ) $(THREAD_FLAGS)
 
 clean:
-	rm -f $(OBJ)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
 	rm -f $(NAME)

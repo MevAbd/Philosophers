@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 04:45:25 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/30 01:11:18 by malbrand         ###   ########.fr       */
+/*   Updated: 2021/12/30 17:42:27 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_close(t_philo *philo)
 	int		i;
 
 	pthread_mutex_lock(&philo->info_ptr->dead);
-	cpy = philo;
+	cpy = philo->info_ptr->philo_ptr;
 	i = philo->info_ptr->n_philo;
 	while (cpy && i)
 	{
@@ -66,7 +66,10 @@ void	ft_write(t_philo *philo, char *str)
 	id = ft_itoa(philo->id, 0);
 	time = ft_itoa(ft_time() - philo->info_ptr->time, 0);
 	pthread_mutex_lock(&philo->info_ptr->write_info);
-	end = (philo->info_ptr->sig);
+	if (philo->info_ptr->sig == 3 || philo->info_ptr->sig == 2)
+		end = 2;
+	else
+		end = 0;
 	pthread_mutex_unlock(&philo->info_ptr->write_info);
 	if (!end)
 	{
@@ -107,6 +110,6 @@ void	ft_unlock(t_philo *philo)
 	philo->verif++;
 	pthread_mutex_unlock(&philo->info_ptr->write_info);
 	ft_sleep(philo->info_ptr, philo->tte);
-	pthread_mutex_unlock(&philo->info_ptr->fork[philo->next->id - 1]);
-	pthread_mutex_unlock(&philo->info_ptr->fork[philo->id - 1]);
+	pthread_mutex_unlock(&philo->info_ptr->fork[philo->next->id] - 1);
+	pthread_mutex_unlock(&philo->info_ptr->fork[philo->id] - 1);
 }
