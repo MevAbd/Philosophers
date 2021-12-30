@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 18:44:43 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/29 07:02:53 by malbrand         ###   ########.fr       */
+/*   Updated: 2021/12/30 00:13:03 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_dead(t_info *info)
 	ret = 0;
 	eat = 0;
 	while (philo && --i)
-	{
+	{	
 		if (philo->stalk != 0 && ((ft_time() - info->time) - philo->stalk)
 			>= philo->ttd)
 		{
@@ -43,7 +43,7 @@ int	ft_dead(t_info *info)
 			eat++;
 		philo = philo->next;
 	}
-	ret = ft_ret(info->n_philo, ret);
+	ret = ft_ret(eat == info->n_philo, ret);
 	pthread_mutex_unlock(&info->dead);
 	return (ret);
 }
@@ -67,11 +67,11 @@ void	ft_signal(t_info *info, int *sig)
 	ret = ft_dead(info);
 	if (ret == 1)
 		info->sig = 2;
-	if (ret == 2)
+	else if (ret == 2)
 		info->sig = 3;
 	*sig = info->sig;
-	pthread_mutex_unlock(&info->read_info);
 	pthread_mutex_unlock(&info->write_info);
+	pthread_mutex_unlock(&info->read_info);
 }
 
 void	*ft_loop(t_philo *philo)
@@ -81,14 +81,10 @@ void	*ft_loop(t_philo *philo)
 	sig = -1;
 	while (sig != 2 && sig != 3)
 	{	
-		printf("hello\n");
-		printf("%d %d\n", philo->id, sig);
 		ft_signal(philo->info_ptr, &sig);
-		printf("%d %d\n", philo->id, sig);
-		if ((philo->id % 2 == 0 && sig == 0x00)
-			|| (philo->id % 2 != 0 && sig == 0x01))
+		if ((philo->id % 2 == 0 && sig == 0)
+			|| (philo->id % 2 != 0 && sig == 1))
 		{
-			printf("test\n");
 			ft_eat(philo);
 		}
 	}

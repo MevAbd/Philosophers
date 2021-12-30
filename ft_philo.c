@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 15:24:28 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/29 06:54:16 by malbrand         ###   ########.fr       */
+/*   Updated: 2021/12/29 22:54:17 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,13 @@ int	main(int ac, char **av)
 	t_info	*info;
 	t_philo	*philo;
 
-	printf("1\n");
 	if (ft_parsing(ac, av))
 		return (0);
-	printf("2\n");
 	info = ft_init_info(ac, av);
-	printf("3\n");
 	philo = ft_create_philo(info, av);
-	printf("4\n");
 	info->philo_ptr = philo;
-	printf("5\n");
 	ft_thread(philo);
-	printf("6\n");
 	ft_join(philo);
-	printf("7\n");
 	ft_end(philo);
-	printf("8\n");
 	return (0);
 }

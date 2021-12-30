@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 04:45:25 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/29 06:56:13 by malbrand         ###   ########.fr       */
+/*   Updated: 2021/12/30 01:11:18 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_close(t_philo *philo)
 {
-	t_philo *cpy;
+	t_philo	*cpy;
 	int		i;
 
 	pthread_mutex_lock(&philo->info_ptr->dead);
@@ -66,7 +66,8 @@ void	ft_write(t_philo *philo, char *str)
 	id = ft_itoa(philo->id, 0);
 	time = ft_itoa(ft_time() - philo->info_ptr->time, 0);
 	pthread_mutex_lock(&philo->info_ptr->write_info);
-	end = (philo->info_ptr->sig == 2 || philo->info_ptr->sig == 3);
+	end = (philo->info_ptr->sig);
+	pthread_mutex_unlock(&philo->info_ptr->write_info);
 	if (!end)
 	{
 		write(1, time, ft_strlen(time));
@@ -76,7 +77,7 @@ void	ft_write(t_philo *philo, char *str)
 		write(1, str, ft_strlen(str));
 		write(1, "\n", 1);
 	}
-	free(id);	
+	free(id);
 	free(time);
 	pthread_mutex_unlock(&philo->info_ptr->control);
 }

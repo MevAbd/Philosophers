@@ -6,11 +6,37 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 15:50:25 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/28 15:50:35 by malbrand         ###   ########.fr       */
+/*   Updated: 2021/12/29 22:52:10 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_philo.h"
+
+t_philo	*ft_lstlast(t_philo *lst)
+{
+	if (lst)
+	{
+		while (lst->next)
+			lst = lst->next;
+	}
+	return (lst);
+}
+
+void	ft_lstadd_back(t_philo **alst, t_philo *new)
+{
+	t_philo	*last;
+
+	if (alst)
+	{
+		if (*alst)
+		{
+			last = ft_lstlast(*alst);
+			last->next = new;
+		}
+		else
+			*alst = new;
+	}
+}
 
 int	ft_atoi(char const *s)
 {

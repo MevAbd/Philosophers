@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 15:52:22 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/29 06:18:09 by malbrand         ###   ########.fr       */
+/*   Updated: 2021/12/30 01:11:48 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,13 @@ void		ft_join(t_philo *philo);
 void		ft_unlock(t_philo *philo);
 void		ft_close(t_philo *philo);
 void		ft_signal(t_info *info, int *sig);
+void		ft_lstadd_back(t_philo **alst, t_philo *new);
 
 size_t		ft_strlen(const char *str);
 
 t_info		*ft_init_info(int ac, char **av);
 
 t_philo		*ft_create_philo(t_info *info, char **av);
+t_philo		*ft_lstlast(t_philo *lst);
 
 #endif

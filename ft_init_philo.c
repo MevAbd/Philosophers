@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 18:02:00 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/29 05:29:52 by malbrand         ###   ########.fr       */
+/*   Updated: 2021/12/29 22:52:41 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,11 @@ t_philo	*ft_create_philo(t_info *info, char **av)
 		else
 		{
 			in = ft_create_one(info, i + 1, av);
-			in->next = philo;
-			philo = in;
+			ft_lstadd_back(&philo, in);
 		}
 		i++;
 	}
-	last = philo;
-	while (last && last->next)
-		last = last->next;
+	last = ft_lstlast(philo);
 	last->next = philo;
 	return (philo);
 }
