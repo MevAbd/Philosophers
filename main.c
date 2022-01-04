@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 13:58:41 by malbrand          #+#    #+#             */
-/*   Updated: 2022/01/04 21:43:24 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/01/04 22:54:53 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int	main(int ac, char **av)
 	ft_thread(philo);
 	ft_dead(philo);
 	ft_join(philo);
+	ft_exit(philo);
 	return (1);
 }
