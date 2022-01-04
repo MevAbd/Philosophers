@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/31 13:16:17 by malbrand          #+#    #+#             */
-/*   Updated: 2022/01/04 07:26:32 by malbrand         ###   ########.fr       */
+/*   Created: 2022/01/04 15:44:14 by malbrand          #+#    #+#             */
+/*   Updated: 2022/01/04 18:21:19 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@ void	ft_fork(t_philo *philo, pthread_mutex_t *fork)
 		ft_dead(philo);
 	if (philo->info_ptr->die)
 		return ;
-//	pthread_mutex_lock(fork);
 	id = ft_itoa(philo->id, 0);
-	time = ft_itoa(ft_time() - philo->info_ptr->time, 0);
-	if ((philo->info_ptr-> sig == 1 || philo->info_ptr->sig == 0)
-		&& philo->info_ptr->die == 0)
+	time = ft_itoa(ft_time() - philo->time, 0);
+	if (philo->info_ptr->die == 0)
 	{
+		pthread_mutex_lock(fork);
 		pthread_mutex_lock(&philo->info_ptr->write);
 		write(1, time, ft_strlen(time));
 		write(1, " ", 1);
@@ -44,9 +43,8 @@ void	ft_eat(t_philo *philo)
 	char	*time;
 
 	id = ft_itoa(philo->id, 0);
-	time = ft_itoa(ft_time() - philo->info_ptr->time, 0);
-	if ((philo->info_ptr-> sig == 1 || philo->info_ptr->sig == 0)
-		&& philo->info_ptr->die == 0)
+	time = ft_itoa(ft_time() - philo->time, 0);
+	if (philo->info_ptr->die == 0)
 	{
 		pthread_mutex_lock(&philo->info_ptr->write);
 		write(1, time, ft_strlen(time));
@@ -54,14 +52,16 @@ void	ft_eat(t_philo *philo)
 		write(1, id, ft_strlen(id));
 		write(1, " is eating\n", 11);
 		pthread_mutex_unlock(&philo->info_ptr->write);
-		philo->stalk = ft_time() - philo->info_ptr->time;
 		philo->p_max_eat--;
-		philo->last_meal = philo->stalk;
-		ft_sleep(philo->info_ptr, philo->info_ptr->tte, philo);
+		philo->eat++;
+		philo->last_meal = ft_time() - philo->time;
+		ft_sleep(philo->info_ptr->tte, philo, 0);
+	//	philo->last_meal = ft_time() - philo->time;
 	}
 	free(id);
 	free(time);
 }
+
 
 void	ft_monitoring_bis(t_philo *philo)
 {	
@@ -83,7 +83,6 @@ void	ft_monitoring(t_philo *philo)
 	t_philo	*last;
 	int		check;
 
-//	pthread_mutex_lock(&philo->info_ptr->test);
 	info = philo->info_ptr;
 	last = philo;
 	check = philo->id;
@@ -97,11 +96,18 @@ void	ft_monitoring(t_philo *philo)
 		return ;
 	}
 	ft_monitoring_bis(philo);
-//	pthread_mutex_unlock(&philo->info_ptr->fork);
 	ft_eat(philo);
-//	pthread_mutex_unlock(&philo->info_ptr->test);
-	pthread_mutex_unlock(&philo->info_ptr->fork[philo->id - 1]);
-	pthread_mutex_unlock(&philo->info_ptr->fork[philo->next->id - 1]);
+	if (philo->id < philo->next->id)
+	{
+		pthread_mutex_unlock(&philo->info_ptr->fork[philo->next->id - 1]);
+		pthread_mutex_unlock(&philo->info_ptr->fork[philo->id - 1]);
+	}
+	else
+	{
+		pthread_mutex_unlock(&philo->info_ptr->fork[philo->id - 1]);
+		pthread_mutex_unlock(&philo->info_ptr->fork[philo->next->id - 1]);
+	}
 	ft_sleeping(philo);
 	ft_thinking(philo);
 }
+

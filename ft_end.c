@@ -5,20 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/31 13:58:45 by malbrand          #+#    #+#             */
-/*   Updated: 2022/01/04 06:46:35 by malbrand         ###   ########.fr       */
+/*   Created: 2022/01/04 15:37:16 by malbrand          #+#    #+#             */
+/*   Updated: 2022/01/04 17:05:50 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_philo.h"
 
-void	ft_close_solo(t_philo *philo)
+#include "ft_philo.h"
+
+void	ft_close(t_philo *philo)
 {
 	char	*id;
 	char	*time;
 
+	time = ft_itoa(ft_time() - philo->time, 0);
 	id = ft_itoa(philo->id, 0);
-	time = ft_itoa(ft_time() - philo->info_ptr->time, 0);
 	if (!philo->info_ptr->double_die && philo->id == philo->info_ptr->die)
 	{
 		pthread_mutex_lock(&philo->info_ptr->write);
@@ -31,25 +33,27 @@ void	ft_close_solo(t_philo *philo)
 	}
 	free(id);
 	free(time);
-	philo->stalk = ft_time() - philo->info_ptr->time;
 }
 
-void	ft_end(t_philo *philo)
+void	ft_close_solo(t_philo *philo)
 {
-	t_info	*info;
-	t_philo	*next;
-	int		i;
-	int		n_philo;
+	char	*id;
+	char	*time;
 
-	i = 0;
-	info = philo->info_ptr;
-	n_philo = info->n_philo;
-	free(info);
-	while (i < n_philo)
+	time = NULL;
+	id = ft_itoa(philo->id, 0);
+	if (!philo->info_ptr->double_die && philo->id == philo->info_ptr->die)
 	{
-		next = philo->next;
-		free(philo);
-		philo = next;
-		i++;
+		ft_sleep((philo->info_ptr->ttd), philo, 1);
+		time = ft_itoa(ft_time() - philo->time, 0);
+		pthread_mutex_lock(&philo->info_ptr->write);
+		write(1, time, ft_strlen(time));
+		write(1, " ", 1);
+		write(1, id, ft_strlen(id));
+		write(1, " died\n", 6);
+		pthread_mutex_unlock(&philo->info_ptr->write);
 	}
+	free(id);
+	if (time)
+		free(time);
 }

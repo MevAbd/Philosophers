@@ -5,34 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/31 09:19:47 by malbrand          #+#    #+#             */
-/*   Updated: 2021/12/31 09:19:50 by malbrand         ###   ########.fr       */
+/*   Created: 2022/01/04 14:14:52 by malbrand          #+#    #+#             */
+/*   Updated: 2022/01/04 14:15:14 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_philo.h"
-
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
-int	ft_strncmp(char const *s1, char const *s2, size_t n)
-{
-	unsigned int	i;
-
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (s1[i] && s2[i] && s1[i] == s2[i] && i <= n)
-		i++;
-	return (((unsigned char)s1[i]) - ((unsigned char)s2[i]));
-}
 
 unsigned int	ft_sign(int n)
 {
