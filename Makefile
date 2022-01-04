@@ -1,11 +1,12 @@
 SRC = ft_philo.c \
-		ft_lib.c \
-		ft_atoi.c \
-		ft_init_info.c \
-		ft_init_philo.c \
 		ft_eat.c \
-		ft_routine.c \
-		ft_finish.c
+		ft_end.c \
+		ft_atoi.c \
+		ft_itoa.c \
+		ft_fill.c \
+		ft_parsing.c \
+		ft_thread.c \
+		ft_action.c
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,${SRC})
 OBJ_DIR	= objs/
@@ -32,3 +33,4 @@ fclean: clean
 re: fclean $(NAME)
 
 .PHONY: clean fclean re
+
