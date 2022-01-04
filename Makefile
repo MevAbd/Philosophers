@@ -1,23 +1,30 @@
-SRC = ft_philo.c \
+SRC =	main.c \
 		ft_parsing.c \
+		ft_fill.c \
 		ft_itoa.c \
 		ft_libft.c \
-		ft_fill.c \
 		ft_thread.c \
 		ft_action.c \
-		ft_eat.c \
-		ft_end.c
+		ft_fork.c \
+		ft_end.c \
+		ft_write.c \
+		ft_monitoring.c
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,${SRC})
 OBJ_DIR	= objs/
+INIT_DIR = init/
+LIBFT_DIR = libft/
+INCLUDES_DIR = includes/
 
-FLAGS = -Wall -Wextra -Werror
+VPATH	= $(INIT_DIR) $(LIBFT_DIR)
+
+FLAGS = -Wall -Wextra -Werror #-g -fsanitize=thread
 
 THREAD_FLAGS = -lpthread -D_REENTRANT
 
 $(OBJ_DIR)%.o	: %.c
 				mkdir -p $(OBJ_DIR)
-				cc $(FLAGS) -c $< -o $@
+				cc $(FLAGS) -c $< -I$(INCLUDES_DIR) -o $@
 
 NAME = philo
 

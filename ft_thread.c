@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:04:43 by malbrand          #+#    #+#             */
-/*   Updated: 2022/01/04 16:06:11 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/01/04 21:43:35 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,32 +27,6 @@ int	ft_max_eat(t_philo *philo)
 	if (cpy->p_max_eat == 0)
 		return (1);
 	return (0);
-}
-
-static void	*ft_loop(t_philo *philo)
-{
-	int	ret;
-
-	ret = ft_max_eat(philo);
-	if (philo->id == 1 && philo->next->id == 1)
-	{	
-		philo->info_ptr->die = 1;
-		ft_close_solo(philo);
-		return ((void *)0);
-	}
-	if (philo->id % 2 != 0)
-		ft_sleep(philo->info_ptr->tte, philo, 0);
-	while (philo->info_ptr->die == 0 && ret == 0)
-	{
-		ft_dead(philo);
-		if (philo->id <= philo->info_ptr->n_philo)
-			ft_monitoring(philo);
-		ft_dead(philo);
-		ret = ft_max_eat(philo);
-	}
-	if (philo->info_ptr->double_die == 0)
-		ft_close(philo);
-	return ((void *)0);
 }
 
 void	ft_thread(t_philo *philo)

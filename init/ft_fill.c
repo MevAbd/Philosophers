@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 14:34:09 by malbrand          #+#    #+#             */
-/*   Updated: 2022/01/04 18:04:21 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/01/04 21:41:37 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_info	*ft_fill_info(int ac, char **av)
 	info->tte = ft_atoi(av[3]);
 	info->tts = ft_atoi(av[4]);
 	info->die = 0;
-	info->double_die = 0;
 	pthread_mutex_init(&info->write, NULL);
 	info->fork = malloc(sizeof(pthread_mutex_t) * info->n_philo);
 	while (i < info->n_philo)
@@ -63,7 +62,6 @@ t_philo	*ft_create_one(t_info *info, int id)
 	philo->info_ptr = info;
 	philo->next = NULL;
 	philo->last_meal = 0;
-	philo->eat = 0;
 	philo->time = ft_time();
 	philo->p_max_eat = info->max_eat;
 	return (philo);
@@ -89,6 +87,5 @@ t_philo	*ft_fill_philo(t_info *info)
 		i++;
 	}
 	ft_lstadd_back(&philo, philo);
-//	printf("LAAAAAAAAAA\n");
 	return (philo);
 }

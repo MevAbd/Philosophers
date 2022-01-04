@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:37:16 by malbrand          #+#    #+#             */
-/*   Updated: 2022/01/04 17:05:50 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/01/04 21:25:08 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,13 @@ void	ft_close(t_philo *philo)
 
 	time = ft_itoa(ft_time() - philo->time, 0);
 	id = ft_itoa(philo->id, 0);
-	if (!philo->info_ptr->double_die && philo->id == philo->info_ptr->die)
+	if (philo->id == philo->info_ptr->die)
 	{
 		pthread_mutex_lock(&philo->info_ptr->write);
 		write(1, time, ft_strlen(time));
 		write(1, " ", 1);
 		write(1, id, ft_strlen(id));
 		write(1, " died\n", 6);
-		philo->info_ptr->double_die = 1;
 		pthread_mutex_unlock(&philo->info_ptr->write);
 	}
 	free(id);
@@ -42,7 +41,7 @@ void	ft_close_solo(t_philo *philo)
 
 	time = NULL;
 	id = ft_itoa(philo->id, 0);
-	if (!philo->info_ptr->double_die && philo->id == philo->info_ptr->die)
+	if (philo->id == philo->info_ptr->die)
 	{
 		ft_sleep((philo->info_ptr->ttd), philo, 1);
 		time = ft_itoa(ft_time() - philo->time, 0);
