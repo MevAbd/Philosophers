@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:25:53 by malbrand          #+#    #+#             */
-/*   Updated: 2022/01/04 22:12:21 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/01/04 22:39:30 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,18 @@ void	ft_sleep(long time, t_philo *philo, int verif)
 	long	goal;
 
 	goal = ft_time() + time;
-//	if (verif == 1)
-//	{
-//		while (ft_time() < goal)
-//		{
-//			usleep(1);
-//		}
-//	}
-//	while (ft_time() < goal && philo->info_ptr->die == 0)
-//	{
-	(void)verif;
-	(void)philo;
-	if (!philo->info_ptr->die)
-		usleep(time * 1000);
-	//	ft_dead(philo);
-//	}
+	if (verif == 1)
+	{
+		while (ft_time() < goal)
+		{
+			usleep(1);
+		}
+	}
+	else
+	{
+		if (!philo->info_ptr->die)
+			usleep(time * 1000);
+	}
 }
 
 void	ft_action(t_philo *philo, char *str)
@@ -62,7 +59,7 @@ void	ft_dead(t_philo *philo)
 	while (philo->info_ptr->die == 0)
 	{
 		if ((ft_time() - philo->time
-			- philo->last_meal >= philo->info_ptr->ttd))
+				- philo->last_meal >= philo->info_ptr->ttd))
 			philo->info_ptr->die = philo->id;
 		philo = philo->next;
 	}

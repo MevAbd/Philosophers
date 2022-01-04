@@ -6,11 +6,11 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 14:14:52 by malbrand          #+#    #+#             */
-/*   Updated: 2022/01/04 14:15:14 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/01/04 22:33:58 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_philo.h"
+#include "ft_libft.h"
 
 unsigned int	ft_sign(int n)
 {

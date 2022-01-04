@@ -6,11 +6,11 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 14:12:24 by malbrand          #+#    #+#             */
-/*   Updated: 2022/01/04 18:03:47 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/01/04 22:34:11 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_philo.h"
+#include "ft_libft.h"
 
 size_t	ft_strlen(const char *str)
 {
