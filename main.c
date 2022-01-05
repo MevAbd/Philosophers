@@ -6,12 +6,29 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 13:58:41 by malbrand          #+#    #+#             */
-/*   Updated: 2022/01/04 22:54:53 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/01/05 10:55:47 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_philo.h"
 #include "init.h"
+
+void	ft_exit(t_philo *philo)
+{
+	t_philo	*cpy;
+	int		i;
+
+	i = philo->info_ptr->n_philo;
+	pthread_mutex_destroy(&philo->info_ptr->write);
+	free(philo->info_ptr->fork);
+	while (i)
+	{
+		cpy = philo->next;
+		free(philo);
+		philo = cpy;
+		i--;
+	}
+}
 
 int	main(int ac, char **av)
 {
@@ -27,5 +44,6 @@ int	main(int ac, char **av)
 	ft_dead(philo);
 	ft_join(philo);
 	ft_exit(philo);
+	free(info);
 	return (1);
 }

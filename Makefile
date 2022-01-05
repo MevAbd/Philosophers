@@ -6,7 +6,6 @@ SRC =	main.c \
 		ft_thread.c \
 		ft_action.c \
 		ft_fork.c \
-		ft_end.c \
 		ft_write.c \
 		ft_monitoring.c
 
@@ -18,7 +17,7 @@ INCLUDES_DIR = includes/
 
 VPATH	= $(INIT_DIR) $(LIBFT_DIR)
 
-FLAGS = -Wall -Wextra -Werror #-g -fsanitize=thread
+FLAGS = -Wall -Wextra -Werror #-fsanitize=address
 
 THREAD_FLAGS = -lpthread -D_REENTRANT
 

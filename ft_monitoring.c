@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 19:48:16 by malbrand          #+#    #+#             */
-/*   Updated: 2022/01/04 22:48:53 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/01/05 10:31:01 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	*ft_loop(t_philo *philo)
 {
 	if (philo->id == 1 && philo->next->id == 1)
 	{	
-		philo->info_ptr->die = 1;
-		ft_close_solo(philo);
+		ft_sleep((philo->info_ptr->ttd), philo, 1);
+		ft_write_philo(philo, "died\n");
 		return ((void *)0);
 	}
 	if (philo->info_ptr->n_philo % 2)
@@ -47,6 +47,6 @@ void	*ft_loop(t_philo *philo)
 			ft_monitoring(philo);
 	}
 	if (philo->info_ptr->die == philo->id)
-		ft_close(philo);
+		ft_write_philo(philo, "died\n");
 	return ((void *)0);
 }

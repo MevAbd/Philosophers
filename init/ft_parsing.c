@@ -6,11 +6,12 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 14:07:57 by malbrand          #+#    #+#             */
-/*   Updated: 2022/01/04 14:11:57 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/01/05 10:32:49 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_philo.h"
+#include "ft_libft.h"
 
 int	ft_verif_nb(int ac, char **av, int nb, int i)
 {

@@ -6,30 +6,73 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 19:12:43 by malbrand          #+#    #+#             */
-/*   Updated: 2022/01/04 20:09:08 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/01/05 10:25:36 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "struct.h"
 #include "ft_philo.h"
+#include "ft_libft.h"
+
+char	*ft_cpy(char *dest, char *src)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (dest[i] != '\0')
+		i++;
+	while (src[j] != '\0')
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+char	*ft_strdup(char *one, char *two, int verif)
+{
+	char		*ret;
+	size_t		size;
+
+	size = ft_strlen(one) + ft_strlen(two) + 3;
+	ret = malloc(sizeof(char) * size);
+	if (!ret)
+		return (NULL);
+	ret[0] = '\0';
+	ret = ft_cpy(ret, one);
+	ret = ft_cpy(ret, " ");
+	free(one);
+	ret = ft_cpy(ret, two);
+	if (verif)
+		free(two);
+	return (ret);
+}
 
 void	ft_write_philo(t_philo *philo, char *str)
 {
-	char	*id;
-	char	*time;
+	char	*ret;
 
-	id = ft_itoa(philo->id, 0);
+	ret = NULL;
 	pthread_mutex_lock(&philo->info_ptr->write);
-	time = ft_itoa(ft_time() - philo->time, 0);
 	if (!philo->info_ptr->die)
 	{
-		write(1, time, ft_strlen(time));
-		write(1, " ", 1);
-		write(1, id, ft_strlen(id));
-		write(1, " ", 1);
-		write(1, str, ft_strlen(str));
+		ret = ft_strdup(ft_itoa(ft_time() - philo->time, 0),
+				ft_itoa(philo->id, 0), 1);
+		ret = ft_strdup(ret, str, 0);
+		write(1, ret, ft_strlen(ret));
+		free(ret);
+	}
+	else if (philo->id == philo->info_ptr->die)
+	{
+		ret = ft_strdup(ft_itoa(ft_time() - philo->time, 0),
+				ft_itoa(philo->id, 0), 1);
+		ret = ft_strdup(ret, str, 0);
+		write(1, ret, ft_strlen(ret));
+		free(ret);
 	}
 	pthread_mutex_unlock(&philo->info_ptr->write);
-	free(time);
-	free(id);
 }

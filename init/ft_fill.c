@@ -6,11 +6,12 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 14:34:09 by malbrand          #+#    #+#             */
-/*   Updated: 2022/01/04 21:41:37 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/01/05 10:33:13 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_philo.h"
+#include "ft_libft.h"
 
 long	ft_time(void)
 {
